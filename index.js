@@ -41,9 +41,9 @@ const COMMANDS = {
     info: "Check the status of the current session.",
     cmd: require('./cmds/session'),
   },
-  find: {
-    info: 'Finds tracks and outputs the search results into a file.',
-    cmd: require('./cmds/find'),
+  syncCatalog: {
+    info: 'Requests monstercats entier catalog to the local cache for complex searches.',
+    cmd: require('./cmds/syncCatalog'),
   },
   download: {
     info: 'Downloads the tracks the specified file.',
