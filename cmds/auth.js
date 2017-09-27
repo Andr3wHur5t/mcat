@@ -16,7 +16,9 @@ const auth = (dbg, args, done) => {
     monstercat.request('POST', '/signin', { body, json: true }, (err, res, body)=> {
       if (err) return done(err)
       console.log("-- ✅  Authenticated with Monstercat Connect!")
-      done();
+
+      // The cookie file system store is not sync, wait long enough for it to write
+      setTimeout(done,  2000)
     });
   })
 }
