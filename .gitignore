@@ -1,0 +1,17 @@
+# OS X
+.DS_STORE
+
+# Other IDE
+.idea
+
+# Vim
+*.swp
+*.swo
+:w
+;
+
+# System
+*.log
+
+# Node
+node_modules
