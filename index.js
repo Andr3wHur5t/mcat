@@ -1,40 +1,35 @@
-process.env.DEBUG = process.env.DEBUG || "mcat:*,-mcat:help"
 const _ = require('lodash')
-const async = require('async')
 const _debug = require('debug')
-const request = require('request')
 
-const printHelp = (args, done)=> {
+// Help Is In main to get access to commands object to auto populate help text.
+const printHelp = (log, args, done)=> {
   let lines = []
   var indentTxt = ""
-  const indent = (level)=> { indentTxt = new Array(level).join("  ") }
-  const addLine = (text)=> { i
-    lines.push(text ? indentTxt + text: "")
-  }
+  const indent = (level)=> { indentTxt = new Array(level + 1).join("  ") }
+  const addLine = (text)=> { lines.push(text ? indentTxt + text : '') }
 
+  // Header
   indent(0)
   addLine('CLI tool to interface with the monstercat connect API.')
-  indent(1)
+  addLine()
   addLine("This tool is best used for syncing a target group of tracks with your local machiene.")
   addLine()
-  indent(0)
-  he
 
+  // Examples Block:
 
-  console.log join
+  // Commands Block
+  addLine("Commands:")
+  addLine()
+  indent(1)
+
+  targetCharCount = _.max(_.map(_.keys(COMMANDS), "length"))
+  _.each(COMMANDS, ({info}, name)=> {
+    deltaSpaces = new Array((targetCharCount - name.length) + 1 + 3).join(' ')
+    addLine(`${name}${deltaSpaces} - ${info}`)
+  });
+
+  console.log(lines.join("\n"))
   done()
-}
-
-const authenticate = (args, done)=> {
-
-}
-
-const findTracks = (args, done)=> {
-
-}
-
-const downloadTracks = (args, done)=> {
-
 }
 
 const COMMANDS = {
@@ -44,15 +39,15 @@ const COMMANDS = {
   },
   auth: {
     info: 'Create a session with the monstercat connnect service.',
-    cmd: authenticate,
+    cmd: require('./cmds/auth'),
   },
   findTracks: {
     info: 'Finds tracks and outputs the search results into a file.',
-    cmd: findTracks,
+    cmd: require('./cmds/find'),
   },
   downloadTracks: {
     info: 'Downloads the tracks the specified file.',
-    cmd: downloadTracks,
+    cmd: require('./cmds/download'),
   },
 }
 
@@ -60,7 +55,7 @@ const COMMANDS = {
 // Map `lowercase:fullMapName`
 const INSENSITIVE_MAP = _.fromPairs(_.map(_.keys(COMMANDS), (k)=> [k.toLowerCase(), k] ))
 const runCommand = (name, args, done)=> {
-  let realName = INSENSITIVE_MAP[name.toLowerCase()] || "help"
+  let realName = INSENSITIVE_MAP[(name || "").toLowerCase()] || "help"
   let cmdFn = COMMANDS[realName].cmd
   let dbg = _debug(`mcat:${realName}`)
   dbg("Starting!")
@@ -84,6 +79,6 @@ const main = (done)=> {
 }
 
 main((err, exitCode)=>{
-  console.error(err)
+  err && console.error(err)
   process.exit(exitCode ||  Number(!!err))
 })
