@@ -12,10 +12,8 @@ const printHelp = (log, args, done)=> {
   indent(0)
   addLine('CLI tool to interface with the MonsterCat Connect API.')
   addLine()
-  addLine("This tool is best used for syncing a target group of tracks with your local machiene.")
+  addLine("This tool is best used for syncing a target group of tracks with your local machiene (i.e. iTunes).")
   addLine()
-
-  // Examples Block:
 
   // Commands Block
   addLine("Commands:")
@@ -34,7 +32,7 @@ const printHelp = (log, args, done)=> {
 
 const COMMANDS = {
   auth: {
-    info: 'Create a session with the monstercat connnect service.',
+    info: 'Create a session with the MonsterCat Connnect service.',
     cmd: require('./cmds/auth'),
   },
   session: {
@@ -42,8 +40,12 @@ const COMMANDS = {
     cmd: require('./cmds/session'),
   },
   syncCatalog: {
-    info: 'Requests monstercats entier catalog to the local cache for complex searches.',
+    info: 'Syncs MonsterCat\'s entire catalog to the local cache.',
     cmd: require('./cmds/syncCatalog'),
+  },
+  select: {
+    info: 'Selects a set of tracks from the cache using the given options.',
+    cmd: require('./cmds/select'),
   },
   download: {
     info: 'Downloads the tracks the specified file.',
@@ -54,7 +56,7 @@ const COMMANDS = {
     cmd: require('./cmds/logout'),
   },
   help: {
-    info: 'Prints information about avalable commands.',
+    info: 'Prints this help text.',
     cmd: printHelp,
   },
 }
