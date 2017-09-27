@@ -2,14 +2,14 @@ const fs = require('fs')
 const _ = require('lodash')
 const monstercat = require('../lib/monstercat')
 
-const PAGE_SIZE = 750
+const PAGE_SIZE = 90
 const getPage = (pageNum, results, done)=> {
   if (typeof(results) == 'function') {
     done = results
     results = []
   }
   console.log(`-- 💌  Requesting MonsterCat Catalog (page ${pageNum}).`)
-  monstercat.request('GET', `/api/catalog/track?limit=${PAGE_SIZE}&skip=${pageNum * PAGE_SIZE}`, (err, res, body)=> {
+  monstercat.request('GET', `/api/catalog/browse?limit=${PAGE_SIZE}&skip=${pageNum * PAGE_SIZE}`, (err, res, body)=> {
     if (err) return done(err, null, false)
     const parsedBody = JSON.parse(body)
     console.log(`-- ⬇️  Got ${parsedBody.results.length} tracks from MonsterCat Catalog (page ${pageNum}).`)
