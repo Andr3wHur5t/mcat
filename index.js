@@ -51,6 +51,10 @@ const COMMANDS = {
     info: 'Downloads the tracks the specified file.',
     cmd: require('./cmds/download'),
   },
+  importItunes: {
+    info: 'Imports the paths into iTunes.',
+    cmd: require('./cmds/importItunes'),
+  },
   logOut: {
     info: 'Destroys the current session.',
     cmd: require('./cmds/logout'),

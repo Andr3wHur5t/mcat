@@ -4,12 +4,12 @@ const monstercat = require('../lib/monstercat')
 const not = (fn)=> {
   return (e) => { return !fn(e) }
 }
-const isRemix = ({remixers})=> (remixers || []).length != 0
+const isRemix = ({remixers, title})=> (remixers || []).length != 0 || /remix/i.test(title)
 const isColab = ({artists})=> (artists || []).length > 1
-const isFeaturing = ({featuring})=> (featuring || []).length != 0
+const isFeaturing = ({featuring, title})=> (featuring || []).length != 0 || /feat/i.test(title)
 
 const PODCAST_MIN_LENGTH = 60 * 20
-const isLongMix = ({duration})=> duration > PODCAST_MIN_LENGTH
+const isLongMix = ({duration, title})=> duration > PODCAST_MIN_LENGTH || /Podcast|Album Mix/i.test(title)
 
 const isAfter = (dateStr)=> {
   var time = new Date(dateStr).getTime()
