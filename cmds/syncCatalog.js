@@ -2,7 +2,7 @@ const fs = require('fs')
 const _ = require('lodash')
 const monstercat = require('../lib/monstercat')
 
-const PAGE_SIZE = 90
+const PAGE_SIZE = 50
 const getPage = (pageNum, results, done)=> {
   if (typeof(results) == 'function') {
     done = results
